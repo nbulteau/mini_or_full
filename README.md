@@ -16,6 +16,32 @@ L'approche est Monte Carlo : les probabilités sont estimées en répétant un g
 
 La classe Counter est utilisée pour compter efficacement les occurrences de chaque valeur dans les dés.
 
+## Counter
+`Counter` est une classe de la bibliothèque standard Python `collections` qui permet de compter facilement les occurrences d'éléments dans une séquence. Dans ce programme, elle est utilisée pour compter combien de fois chaque valeur de dé apparaît.
+
+Voici un exemple concret avec le code :
+
+```python
+from collections import Counter
+
+# Pour les dés [1, 1, 1, 2, 2]
+dice = [1, 1, 1, 2, 2]
+counts = Counter(dice)
+# Résultat : Counter({1: 3, 2: 2})
+# - La clé 1 a une valeur de 3 (trois dés montrant 1)
+# - La clé 2 a une valeur de 2 (deux dés montrant 2)
+```
+Dans le programme, `Counter` est principalement utilisé pour :
+
+1. Détecter un full dans la fonction `is_full()` :
+   - Compte les occurrences de chaque valeur
+   - Vérifie s'il existe une valeur avec 3 occurrences (brelan) et une autre avec 2 occurrences (paire)
+
+2. Dans les stratégies de jeu pour :
+   - Identifier les brelans (valeurs apparaissant 3 fois ou plus)
+   - Identifier les paires (valeurs apparaissant 2 fois ou plus)
+   - Optimiser la conservation des dés entre les lancers
+
 ### Exemple de sortie
 
 Pour 1 000 000 parties simulées, on obtient les résultats suivants :

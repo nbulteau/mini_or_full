@@ -1,29 +1,24 @@
 # mini_or_full
-Un programme Python qui simule des parties selon une stratégie heuristique pour chacun des objectifs. Ce code propose deux fonctions de simulation : une pour le full (full house) et une pour le mini (la somme des dés inférieure à 8).
 
-simulate_full_house :
-À chaque tour, on lance le nombre de dés non gardés. On vérifie si le total (dés gardés et récemment lancés) forme un full house. Ensuite, on conserve les dés qui font partie d’un brelan (ou, à défaut, une paire) pour améliorer les chances au prochain lancer.
+## simulation_simple_strategy.py
+
+Un programme Python qui simule des parties selon une stratégie heuristique pour chacun des objectifs. Ce code propose deux fonctions de simulation : une pour le full et une pour le mini (la somme des dés inférieure à 8).
+
+simulate_full :
+À chaque tour, on lance le nombre de dés non gardés. On vérifie si le total (dés gardés et récemment lancés) forme un full. Ensuite, on conserve les dés qui font partie d’un brelan (ou, à défaut, une paire) pour améliorer les chances au prochain lancer.
 
 simulate_mini :
 À chaque lancer, on conserve les dés montrant 1 car ils favorisent d’obtenir une somme faible. Au dernier lancer, tous les dés sont ajoutés et ensuite on vérifie si la somme est inférieure à 8.
 
 La stratégie utilisée est simplifiée et heuristique. Elle n’est pas nécessairement optimale, mais permet d’illustrer la simulation avec 3 lancers et la possibilité de conserver certains dés.
 
-## Installation
+L'approche est Monte Carlo : les probabilités sont estimées en répétant un grand nombre de fois les simulations et en calculant le ratio succès/total.
 
-```bash
-git clone
-```
+La classe Counter est utilisée pour compter efficacement les occurrences de chaque valeur dans les dés.
 
-## Utilisation
+### Exemple de sortie
 
-```bash
-python main.py 1000
-```
-
-## Exemple de sortie
-
-Pour 1000000 parties simulées, on obtient les résultats suivants :
+Pour 1 000 000 parties simulées, on obtient les résultats suivants :
 
 ```bash
 python main.py 
@@ -31,3 +26,43 @@ Probabilité de full: 0.2324
 Probabilité de mini (somme < 8): 0.0599
 Le mini a moins de chance d'arriver que le full.
 ```
+
+## simulation_multi_strategies.py
+
+Ce script implémente et compare plusieurs stratégies pour les objectifs du full et du mini.
+
+### Stratégies Full
+
+1. **Stratégie des Paires Multiples** (`simulate_full_pairs`) :
+   - Premier lancer : Conservation de deux paires si possible, sinon une paire
+   - Deuxième lancer : Réévaluation des paires ou passage à un brelan si détecté
+   - Troisième lancer : Complétion avec les dés restants
+
+2. **Stratégie Priorité Brelan** (`simulate_full_priority`) :
+   - À chaque lancer : Identification du nombre le plus fréquent (s'il apparaît au moins deux fois)
+   - Conservation de jusqu'à trois exemplaires de ce nombre
+   - Relance des dés restants pour obtenir la paire complémentaire
+
+### Stratégies Mini (Somme < 8)
+
+1. **Stratégie Valeurs Basses** (`simulate_mini_basse`) :
+   - Deux premiers lancers : Conservation des 1 et 2 si la somme reste acceptable
+   - Dernier lancer : Complétion avec les dés restants et vérification somme < 8
+
+2. **Stratégie Minimisation Progressive** (`simulate_mini_minimisation`) :
+   - Deux premiers lancers : Conservation systématique des 1 et 2
+   - Conservation des 3 si somme actuelle + 3 ≤ 7
+   - Dernier lancer : Complétion avec les dés restants
+
+### Exemple de sortie
+
+Pour 1 000 000 parties simulées :
+
+```bash
+----- full -----
+Stratégie Paires multiples : 0.2647
+Stratégie Priorité brelan : 0.2317
+
+----- mini (somme < 8) -----
+Stratégie Basse valeur conservée : 0.0938
+Stratégie Minimisation progressive : 0.0500

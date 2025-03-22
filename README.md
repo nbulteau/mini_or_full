@@ -7,6 +7,7 @@ simulate_full_house :
 simulate_mini :
 À chaque lancer, on conserve les dés montrant 1 car ils favorisent d’obtenir une somme faible. Au dernier lancer, tous les dés sont ajoutés et ensuite on vérifie si la somme est inférieure à 8.
 
+La stratégie utilisée est simplifiée et heuristique. Elle n’est pas nécessairement optimale, mais permet d’illustrer la simulation avec 3 lancers et la possibilité de conserver certains dés.
 
 ## Installation
 
@@ -30,5 +31,3 @@ Probabilité de full: 0.2324
 Probabilité de mini (somme < 8): 0.0599
 Le mini a moins de chance d'arriver que le full.
 ```
-## Notes
-La stratégie utilisée est simplifiée et heuristique. Elle n’est pas nécessairement optimale, mais permet d’illustrer la simulation avec 3 lancers et la possibilité de conserver certains dés.

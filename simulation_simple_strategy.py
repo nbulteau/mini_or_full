@@ -117,16 +117,26 @@ def simulate_mini(n_simulations):
 
 
 if __name__ == "__main__":
-    simulations = 1000000
-    ph = simulate_full(simulations)
+    import time
+    simulations = 10000000
+
+    # Full simulation with timing
+    start_time = time.time()
+    pf = simulate_full(simulations)
+    full_time = time.time() - start_time
+
+    # Mini simulation with timing
+    start_time = time.time()
     pm = simulate_mini(simulations)
+    mini_time = time.time() - start_time
 
-    print(f"Probabilité de full: {ph:.4f}")
-    print(f"Probabilité de mini (somme < 8): {pm:.4f}")
+    print(f"Probabilité de full: {pf:.4f} (temps: {full_time:.2f}s)")
+    print(f"Probabilité de mini (somme < 8): {pm:.4f} (temps: {mini_time:.2f}s)")
+    print(f"Temps total: {full_time + mini_time:.2f}s")
 
-    if ph < pm:
+    if pf < pm:
         print("Le full a moins de chance d'arriver que le mini.")
-    elif pm < ph:
+    elif pm < pf:
         print("Le mini a moins de chance d'arriver que le full.")
     else:
         print("Les chances sont approximativement égales.")

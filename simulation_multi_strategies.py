@@ -193,13 +193,13 @@ def simulate_mini_minimisation(n_simulations):
     return successes / n_simulations
 
 if __name__ == "__main__":
-    simulations = 1000000
+    simulations = 10000000
 
     print("----- full -----")
-    ph_pairs = simulate_full_pairs(simulations)
-    ph_priority = simulate_full_priority(simulations)
-    print(f"Stratégie Paires multiples : {ph_pairs:.4f}")
-    print(f"Stratégie Priorité brelan : {ph_priority:.4f}")
+    pf_pairs = simulate_full_pairs(simulations)
+    pf_priority = simulate_full_priority(simulations)
+    print(f"Stratégie Paires multiples : {pf_pairs:.4f}")
+    print(f"Stratégie Priorité brelan : {pf_priority:.4f}")
 
     print("\n----- mini (somme < 8) -----")
     pm_basse = simulate_mini_basse(simulations)

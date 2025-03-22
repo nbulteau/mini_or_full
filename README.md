@@ -22,8 +22,10 @@ python main.py 1000
 
 ## Exemple de sortie
 
+Pour 1000000 parties simulées, on obtient les résultats suivants :
+
 ```bash
-python main.py 1000
+python main.py 
 Probabilité de full: 0.2324
 Probabilité de mini (somme < 8): 0.0599
 Le mini a moins de chance d'arriver que le full.

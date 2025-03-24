@@ -1,8 +1,9 @@
+from typing import List, Sequence
 import random
 from collections import Counter
 
 
-def is_full(dice):
+def is_full(dice: Sequence[int]) -> bool:
     """
     Vérifie si, parmi les dés, il est possible de former un full
     (un brelan d'une valeur et une paire d'une autre valeur).
@@ -16,7 +17,7 @@ def is_full(dice):
     return False
 
 
-def simulate_full(n_simulations):
+def simulate_full(n_simulations: int) -> float:
     """
     Simule des parties visant à obtenir un full en 3 lancers.
     Stratégie heuristique :
@@ -24,11 +25,12 @@ def simulate_full(n_simulations):
     - Sinon, on garde les dés faisant partie d'un brelan si présent, sinon une paire.
     - On relance les autres dés lors des lancers suivants.
     """
-    successes = 0
+    successes: int = 0
+    kept: List[int] = []
 
     for _ in range(n_simulations):
         kept = []  # dés conservés
-        dice_to_roll = 5
+        dice_to_roll: int = 5
 
         for roll_num in range(1, 4):
             # Lancer les dés non gardés
@@ -42,10 +44,10 @@ def simulate_full(n_simulations):
 
             # Stratégie pour choisir les dés à garder pour tenter d'obtenir un full
             counts = Counter(current)
-            new_kept = []
+            new_kept: List[int] = []
 
-            triple_candidate = None
-            pair_candidate = None
+            triple_candidate: int | None = None
+            pair_candidate: int | None = None
 
             # Rechercher un brelan
             for num, cnt in counts.items():
@@ -84,21 +86,21 @@ def simulate_full(n_simulations):
     return successes / n_simulations
 
 
-def simulate_mini(n_simulations):
+def simulate_mini(n_simulations: int) -> float:
     """
     Simule des parties visant à obtenir un mini (somme des dés < 8) en 3 lancers.
     Stratégie heuristique :
     - Conserver à chaque lancer les dés qui affichent "1".
     - Au dernier lancer, tous les dés sont pris, puis on vérifie la somme.
     """
-    successes = 0
+    successes: int = 0
 
     for _ in range(n_simulations):
-        kept = []
-        dice_to_roll = 5
+        kept: List[int] = []
+        dice_to_roll: int = 5
 
         for roll_num in range(1, 4):
-            roll = [random.randint(1, 6) for _ in range(dice_to_roll)]
+            roll: List[int] = [random.randint(1, 6) for _ in range(dice_to_roll)]
             # Au dernier lancer, on accepte tous les dés
             if roll_num == 3:
                 kept.extend(roll)
@@ -114,7 +116,6 @@ def simulate_mini(n_simulations):
             successes += 1
 
     return successes / n_simulations
-
 
 if __name__ == "__main__":
     import time
